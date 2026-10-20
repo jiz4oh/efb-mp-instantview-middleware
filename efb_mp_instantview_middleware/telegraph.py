@@ -58,7 +58,7 @@ class Telegraph:
         }
         # response = self.http.request('POST', self.publish_url, fields=fields).data.decode('utf-8')
         # response = json.loads(response)
-        response = self.publisher.post(self.publish_url, data=fields).json()
+        response = self.publisher.post(self.publish_url, data=fields, timeout=5).json()
         return response['result']['url']
 
     def tag2node(self, tag: Tag):
@@ -97,7 +97,7 @@ class Telegraph:
         '''
         # res = self.spider.request('get', url)
         # soup = bs(res.data.decode('utf-8'), features="html.parser")
-        res = self.spider.get(url)
+        res = self.spider.get(url, timeout=5)
         soup = bs(res.text, features="html.parser")
 
         try:
